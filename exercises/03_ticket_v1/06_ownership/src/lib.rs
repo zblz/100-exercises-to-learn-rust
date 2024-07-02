@@ -3,7 +3,7 @@
 //   Change the existing implementation of `Ticket`'s accessor methods take a reference
 //   to `self` as an argument, rather than taking ownership of it.
 
-pub struct Ticket {
+ub struct Ticket {
     title: String,
     description: String,
     status: String,
@@ -34,16 +34,16 @@ impl Ticket {
         }
     }
 
-    pub fn title(self) -> String {
-        self.title
+    pub fn title(&self) -> &String {
+        &self.title
     }
 
-    pub fn description(self) -> String {
-        self.description
+    pub fn description(&self) -> &String {
+        &self.description
     }
 
-    pub fn status(self) -> String {
-        self.status
+    pub fn status(&self) -> &String {
+        &self.status
     }
 }
 
