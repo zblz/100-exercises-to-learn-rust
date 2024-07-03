@@ -8,6 +8,41 @@ enum Status {
     Done,
 }
 
+#[derive(thiserror::Error, Debug, PartialEq)]
+#[error("foo")]
+struct StatusParsingError;
+
+impl TryFrom<String> for Status {
+    type Error = StatusParsingError;
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        let value: String = value.to_lowercase();
+        if value == "todo"{
+            Ok(Status::ToDo)
+        } else if value == "inprogress"{
+            Ok(Status::InProgress)
+        } else if value == "done" {
+            Ok(Status::Done)
+        } else {
+            Err(StatusParsingError)
+        }
+    }
+}
+impl TryFrom<&str> for Status {
+    type Error = StatusParsingError;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let value: String = (*value).to_lowercase();
+        if value == "todo"{
+            Ok(Status::ToDo)
+        } else if value == "inprogress"{
+            Ok(Status::InProgress)
+        } else if value == "done" {
+            Ok(Status::Done)
+        } else {
+            Err(StatusParsingError)
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -23,6 +58,9 @@ mod tests {
 
         let status = Status::try_from("Done".to_string()).unwrap();
         assert_eq!(status, Status::Done);
+
+        let status = Status::try_from("unkownwnwnnw".to_string()).unwrap_err();
+        assert_eq!(status, StatusParsingError);
     }
 
     #[test]

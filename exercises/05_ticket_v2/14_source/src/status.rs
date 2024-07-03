@@ -20,6 +20,13 @@ impl TryFrom<String> for Status {
         }
     }
 }
+impl TryFrom<&str> for Status {
+    type Error = ParseStatusError;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        Self::try_from(*value)
+
+    }}
 
 #[derive(Debug, thiserror::Error)]
 #[error("`{invalid_status}` is not a valid status. Use one of: ToDo, InProgress, Done")]
