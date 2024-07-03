@@ -3,7 +3,7 @@
 //   Change the existing implementation of `Ticket`'s accessor methods take a reference
 //   to `self` as an argument, rather than taking ownership of it.
 
-ub struct Ticket {
+pub struct Ticket {
     title: String,
     description: String,
     status: String,
